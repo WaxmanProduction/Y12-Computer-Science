@@ -27,11 +27,9 @@ while endstate == False:
     if player == comp:
         print("You chose", p_choice,"The computer chose", c_choice)
         print("You drew.")
-        print()
     elif (player == 1 and comp == 2) or (player == 2 and comp == 3) or (player == 3 and comp == 1):
         print("You chose", p_choice,"The computer chose", c_choice)
         print("You lose.")
-        print()
         loss = loss + 1
         if loss == 3:
             print("You're really unlucky huh?")
@@ -39,11 +37,9 @@ while endstate == False:
         elif loss == 10:
             print("Oh my god...")
             print("You should probably give up...")
-            print()
-    else:
+    elif (player == 1 and comp == 3) or (player == 2 and comp == 1) or (player == 3 and comp == 2):
         print("You chose", p_choice,"The computer chose", c_choice)
         print("You win.")
-        print()
         loss = loss - 1
         if loss == -3:
             print("You're on a streak!")
@@ -51,8 +47,10 @@ while endstate == False:
         elif loss == -10:
             print("Don't get me wrong, I'm impressed.")
             print("But you should probably be using this luck on something more productive.")
-            print()
-        
+    else:
+        print("Please only enter a number between one and three.")
+
+    print()    
     endstate = str(input("Do you wish to end? Y/N "))
     if endstate == "Y" or endstate == "y" or endstate == "Yes" or endstate == "yes":
             endstate = True
