@@ -3,7 +3,7 @@ from random import randint
 endstate = False
 loss = 0
 
-while endstate == False:
+while endstate == False:  ### SRC - you could say: while not endstate:
     
     print()
     player = int(input("1: Rock, 2: Paper, 3: Scissors "))
