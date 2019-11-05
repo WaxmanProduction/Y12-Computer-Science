@@ -31,10 +31,10 @@ choice = input("Do you want to encrypt or decrypt a message? E = encrypt D = dec
 choice = choice.lower()
 
 while choice != "e" or choice != "d":
-    choice = "Input a valid choice: "
+    choice = "Input a valid choice: " ### SRC - this line doesn't look right?
     
 if choice == "e":
     encrypt()
 else:
     decrypt()
-end = input()
+end = input() ### SRC - What's happening here?
