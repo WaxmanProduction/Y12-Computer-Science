@@ -37,17 +37,20 @@ while not game_over:
     #Next event
             
     # -- Game logic goes after this comment
-
+    ### SRC - I really like this approach, very efficient.
     if circle_x > 700:
         circle_x = -40
     else:
         circle_x += 2
+    ### SRC - END IF
     A = 2
     if A == 2:
         if circle_x < 290:
             circle_y -= 1
         else:
             circle_y += 1
+        ### SRC - END IF
+    ### SRC - END IF
 
     
     # -- Screen background is BLACK
