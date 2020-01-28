@@ -1,3 +1,4 @@
+### SRC - Good effort, please go back to using the coding conventions
 import pygame
 import random
 import time
@@ -45,7 +46,7 @@ paddle_l = 200
 paddle_r = 200
 
 fail = False
-
+### SRC - Not too worried about this - something to work on later.
 #Tried to have functioning buttons however the mouse function crashes the program
 #def fail_screen():
 #    mouse = pygame.mouse.get_pos()
