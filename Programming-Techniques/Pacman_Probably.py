@@ -40,80 +40,98 @@ class Tile(pygame.sprite.Sprite):
 #End Class
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, colour, width, height, x_ref, y_ref):
+    def __init__(self, colour, width, height):
         super().__init__()
         self.image = pygame.Surface([width,height])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
-        self.rect.x = x_ref
-        self.rect.y = y_ref
-        self.speed = 0
+        self.rect.x = 273
+        self.rect.y = 463
+        self.speedx = 0
+        self.speedy = 0
     #End Public Procedure
 
     def update(self):
-       self.rect.x += self.speed
+       self.rect.x += self.speedx
+       self.rect.y += self.speedy
     #End Public Procedure
 
-    def player_set_speed(self,val):
-        speed = val
-        if speed == -3:
-            self.speed += -3
-        elif speed == 3:
-            self.speed = +3
-        elif speed == 0:
-            self.speed = 0
-
+    def player_set_speed(self,valx,valy):
+        self.speedx = valx
+        self.speedy = valy
     #End Public Procedure
 
+class Ghost(pygame.sprite.Sprite):
+    def __init__(self, colour, width, height):
+        super().__init__()
+        self.image = pygame.Surface([width,height])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = 273
+        self.rect.y = 222
+        self.speedx = 0
+        self.speedy = 0
+    #End Public Procedure
 
-map = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-       [1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
-       [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
-       [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
-       [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
-       [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-       [1,0,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,1],
-       [1,0,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,1],
-       [1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,1],
-       [1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1],
-       [0,0,0,0,0,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,0,0,0,0,0],
-       [0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0],
-       [0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0],
-       [1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1],
-       [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
-       [1,1,1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,1,0,1,1,0,1,1,1,1,1,1],
-       [0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0],
-       [0,0,0,0,0,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,0,0,0,0,0],
-       [0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0],
-       [1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1],
-       [1,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,1],
-       [1,0,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,1,1,0,1],
-       [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
-       [1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1],
-       [1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1],
-       [1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1],
-       [1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,1],
-       [1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1],
-       [1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1],
-       [1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
-       [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]
+    def update(self):
+       self.rect.x += self.speedx
+       self.rect.y += self.speedy
+    #End Public Procedure
+
+    def enemy_movement(self,valx,valy):
+        self.speedx += valx
+        self.speedy += valy
+        
+
+maze = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
+        [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
+        [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
+        [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+        [1,0,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,1],
+        [1,0,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,1],
+        [1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,1],
+        [1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1],
+        [0,0,0,0,0,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,0,0,0,0,0],
+        [0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0],
+        [0,0,0,0,0,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,0,0,0,0,0],
+        [1,1,1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,1,0,1,1,0,1,1,1,1,1,1],
+        [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
+        [1,1,1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,1,0,1,1,0,1,1,1,1,1,1],
+        [0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0],
+        [0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0],
+        [0,0,0,0,0,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,0,0,0,0,0],
+        [1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1],
+        [1,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,1],
+        [1,0,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,1,1,0,1],
+        [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
+        [1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1],
+        [1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1],
+        [1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1],
+        [1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,1],
+        [1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1],
+        [1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1],
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]
 
 all_sprites_group = pygame.sprite.Group()
 
 wall_list = pygame.sprite.Group()
+pacman = Player(YELLOW,15,15)
+ghost1 = Ghost(RED,15,15)
 
-pacman = Player(YELLOW,10,10,200,30)
-
-all_sprites_group.add(pacman)
+all_sprites_group.add(pacman, ghost1)
 
 for x in range(28):
     for y in range (31):
-        if map[y][x] == 1:
+        if maze[y][x] == 1:
             my_wall = Tile(BLUE, 20, 20, x*20, y*20)
             wall_list.add(my_wall)
             all_sprites_group.add(my_wall)
-
-
+        #endif
+    #next
+#next
 
 ### -- Game Loop -- ###
 while not game_over:
@@ -122,24 +140,77 @@ while not game_over:
             game_over = True
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                Player.player_set_speed(pacman,-3)
+                Player.player_set_speed(pacman,-1,0)
             elif event.key == pygame.K_RIGHT:
-                Player.player_set_speed(pacman,3)
+                Player.player_set_speed(pacman,1,0)
             elif event.key == pygame.K_UP:
-                Player.player_set_speed(pacman,0)
+                Player.player_set_speed(pacman,0,-1)
             elif event.key == pygame.K_DOWN:
-                Player.player_set_speed(pacman,0)
+                Player.player_set_speed(pacman,0,1)
+            #endif
         #endif
-    #next event
+                
+    # -- Enemy movement 
+    if pacman.rect.x > ghost1.rect.x:
+        ghost1.enemy_movement(1,0)
+    elif pacman.rect.x < ghost1.rect.x:
+        ghost1.enemy_movement(-1,0)
+    if pacman.rect.y > ghost1.rect.y:
+        ghost1.enemy_movement(0,1)
+    elif pacman.rect.y < ghost1.rect.y:
+        ghost1.enemy_movement(0,-1)
+    #endif
 
+
+    # -- Map loop
+    if pacman.rect.x < -20:
+        pacman.rect.x = 635
+    elif pacman.rect.x > 640:
+        pacman.rect.x = -15
+    #endif
+        
+
+    # -- Check for collisions between characters and wall tiles
+    player_hit_list = pygame.sprite.spritecollide(pacman, wall_list, False)
+    enemy_hit_list = pygame.sprite.spritecollide(ghost1, wall_list, False)
+
+    for foo in player_hit_list:
+        pacman.player_set_speed(0,0)
+        pacman.rect.x = pacman_old_x
+        pacman.rect.y = pacman_old_y
+    #next
+
+    for foo in enemy_hit_list:
+        ghost1.enemy_movement(0,0)
+        ghost1.rect.x = ghost1_old_x
+        ghost1.rect.y = ghost1_old_y
+    #next
+
+    if ghost1.rect.y > (pacman.rect.y - 5) and ghost1.rect.y < (pacman.rect.y + 15) and ghost1.rect.x > pacman.rect.x and ghost1.rect.x < (pacman.rect.x + 10):
+        game_over = True
+    #endif
+        
+    # -- Run the update function for all sprites
+    pacman_old_x = pacman.rect.x
+    pacman_old_y = pacman.rect.y
+    ghost1_old_x = ghost1.rect.x
+    ghost1_old_y = ghost1.rect.y
+    all_sprites_group.update()
+        
+    # -- Run the update function for all sprites
+    all_sprites_group.update()
 
     # -- Draw the stuff
+    screen.fill(BLACK)
     all_sprites_group.draw(screen)
+    all_sprites_group.update()
 
     # -- Flipping display to change object position
     pygame.display.flip()
 
     # -- The clock ticks over
     clock.tick(60)
+
+#endwhile
 
 pygame.quit()
